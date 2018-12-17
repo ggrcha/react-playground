@@ -1,25 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Person from './Person/Person';
 
 class App extends Component {
+
+  state = {
+    persons: [
+      {age: 35},
+      {age: 20}
+    ]
+  }
+
+  switchNameHandler = () => {
+    // console.log("foi clicado!")
+    // NÃO FAÇA ASSIM! this.state.persons[0].age = 99
+    this.setState({ persons: [
+      {age: 99},
+      {age: 15}
+    ]})
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+       <h1>Isto é um aplicativo React!!</h1>
+       <button onClick={this.switchNameHandler}>Trocar o nome</button>
+       <Person age={this.state.persons[0].age} >Teste do guilherme</ Person>
+       <Person age={this.state.persons[1].age} />
       </div>
     );
   }
