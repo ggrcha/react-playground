@@ -10,7 +10,8 @@ class App extends Component {
       name: "Guilherme"},
       {age: 29 ,
       name: "Francielle"}
-    ]
+    ],
+    showPersons: false
   }
 
   switchNameHandler = (newName) => {
@@ -31,8 +32,13 @@ class App extends Component {
      {age: 29, 
      name: "Francielle"}
    ]})
-}
+  }
   
+  togglePersonsHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
+  }
+
   render() {
 
     const style = {
@@ -45,20 +51,24 @@ class App extends Component {
     return (
       <div className="App">
        <h1>Isto é um aplicativo React!!</h1>
-       {/* passagem de parâmetro menos eficiente. não usars */}
+       {/* passagem de parâmetro menos eficiente. não usar */}
        <button 
        style={style}
-       onClick={() => this.switchNameHandler("Gui!!!")}>Trocar o nome</button>
-       <Person 
-        name={this.state.persons[0].name}
-        age={this.state.persons[0].age} 
-        // passagem de parâmetros mais eficiente! usar este modelo
-        click={this.switchNameHandler.bind(this, "GuiGui!!!")}
-        changed={this.nameChangedHandler}>Teste do guilherme</ Person>
-       <Person 
-        name={this.state.persons[1].name}
-        age={this.state.persons[1].age} />
-      </div>
+       onClick={this.togglePersonsHandler}>Mostrar pessoas</button>
+         { this.state.showPersons ? 
+          <div>
+          <Person 
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age} 
+            // passagem de parâmetros mais eficiente! usar este modelo
+            click={this.switchNameHandler.bind(this, "GuiGui!!!")}
+            changed={this.nameChangedHandler}>Teste do guilherme</ Person>
+          <Person 
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age} />
+         </div> : null
+         }
+       </div>
     );
   }
 }
