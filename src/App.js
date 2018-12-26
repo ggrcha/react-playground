@@ -48,16 +48,21 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
-    return (
-      <div className="App">
-       <h1>Isto é um aplicativo React!!</h1>
-       {/* passagem de parâmetro menos eficiente. não usar */}
-       <button 
-       style={style}
-       onClick={this.togglePersonsHandler}>Mostrar pessoas</button>
-         { this.state.showPersons ? 
-          <div>
-          <Person 
+
+    let persons = null
+
+    if (this.state.showPersons){
+      persons = (
+        <div>
+
+          {this.state.persons.map(person => {
+            return <Person 
+              name={person.name}
+              age={person.age}
+              />
+          })}
+
+          {/* <Person 
             name={this.state.persons[0].name}
             age={this.state.persons[0].age} 
             // passagem de parâmetros mais eficiente! usar este modelo
@@ -65,9 +70,18 @@ class App extends Component {
             changed={this.nameChangedHandler}>Teste do guilherme</ Person>
           <Person 
             name={this.state.persons[1].name}
-            age={this.state.persons[1].age} />
-         </div> : null
-         }
+            age={this.state.persons[1].age} /> */}
+         </div>
+      )
+    }
+
+    return (
+      <div className="App">
+        <h1>Isto é um aplicativo React!!</h1>
+        <button 
+        style={style}
+        onClick={this.togglePersonsHandler}>Mostrar pessoas</button>
+        {persons}
        </div>
     );
   }
