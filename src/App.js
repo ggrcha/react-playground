@@ -6,34 +6,44 @@ class App extends Component {
 
   state = {
     persons: [
-      {age: 35 ,
-      name: "Guilherme"},
-      {age: 29 ,
-      name: "Francielle"}
+      {id: "1" ,
+       age: 35 ,
+       name: "Guilherme"},
+      {id: "2" ,
+       age: 29 ,
+       name: "Francielle"}
     ],
     showPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    // console.log("foi clicado!")
-    // NÃO FAÇA ASSIM! this.state.persons[0].age = 99
-    this.setState({ persons: [
-      {age: 35 ,
-      name: newName},
-      {age: 29, 
-      name: "Francielle"}
-    ]})
-  }
+  nameChangedHandler = (event, id) => {
 
-  nameChangedHandler = (event) => {
-   this.setState({ persons: [
-     {age: 35 ,
-     name: event.target.value},
-     {age: 29, 
-     name: "Francielle"}
-   ]})
+    const personIndex = this.state.persons.findIndex(p =>{
+      return p.id === id
+    })
+
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+  
+    person.name = event.target.value
+
+    const persons = [...this.state.persons]
+
+    persons[personIndex] = person
+
+    this.setState({ persons: persons })
+
   }
   
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.slice()
+    // spread operator - retorna listas de elementos e adiciona ao array externo
+    const persons = [...this.state.persons]
+    persons.splice(personIndex,1)
+    this.setState({persons: persons})
+  }
+
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow})
@@ -55,22 +65,15 @@ class App extends Component {
       persons = (
         <div>
 
-          {this.state.persons.map(person => {
+          {this.state.persons.map((person, index) => {
             return <Person 
+              click={() => this.deletePersonHandler(index)}
+              changed={(event) => this.nameChangedHandler(event, person.id)}
               name={person.name}
               age={person.age}
+              key={person.id}
               />
           })}
-
-          {/* <Person 
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age} 
-            // passagem de parâmetros mais eficiente! usar este modelo
-            click={this.switchNameHandler.bind(this, "GuiGui!!!")}
-            changed={this.nameChangedHandler}>Teste do guilherme</ Person>
-          <Person 
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age} /> */}
          </div>
       )
     }
