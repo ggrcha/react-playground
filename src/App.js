@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium from 'radium';
 import './App.css';
 import Person from './Person/Person';
 
@@ -11,7 +12,13 @@ class App extends Component {
        name: "Guilherme"},
       {id: "2" ,
        age: 29 ,
-       name: "Francielle"}
+       name: "Francielle"},
+       {id: "3" ,
+       age: 3 ,
+       name: "Café"},
+       {id: "4" ,
+       age: 3 ,
+       name: "Brisa"}
     ],
     showPersons: false
   }
@@ -52,11 +59,16 @@ class App extends Component {
   render() {
 
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
 
     let persons = null
@@ -76,11 +88,28 @@ class App extends Component {
           })}
          </div>
       )
+      style.backgroundColor = 'red'
+      style[':hover'] = {
+          backgroundColor: 'salmon',
+          color: 'black'
+      }
     }
+
+    const classes = []
+
+    if (this.state.persons.length <= 2) {
+      classes.push('red')
+    }
+
+    if (this.state.persons.length <= 1) {
+      classes.push('bold')
+    }
+
 
     return (
       <div className="App">
         <h1>Isto é um aplicativo React!!</h1>
+        <p className={classes.join(' ')}>Isso realmente funciona!!</p>
         <button 
         style={style}
         onClick={this.togglePersonsHandler}>Mostrar pessoas</button>
@@ -90,4 +119,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);
