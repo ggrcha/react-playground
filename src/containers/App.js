@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AppClasses from './App.module.css';
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 
 class App extends Component {
 
@@ -74,12 +74,12 @@ class App extends Component {
 
           {this.state.persons.map((person, index) => {
             return <Person
-              click={() => this.deletePersonHandler(index)}
-              changed={(event) => this.nameChangedHandler(event, person.id)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-            />
+                click={() => this.deletePersonHandler(index)}
+                changed={(event) => this.nameChangedHandler(event, person.id)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+              />
           })}
         </div>
       )
