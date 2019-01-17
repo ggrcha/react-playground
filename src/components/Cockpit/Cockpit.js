@@ -1,31 +1,33 @@
 import React from 'react';
-import CockpitClasses from './Cockpit.modules.css'
+import classes from './Cockpit.module.css'
 
 const cockpit = (props) => {
 
-    let btnClass = ''
+    let btnClass = classes.Button
 
-    const classes = []
+    const assignedClasses = []
 
-    if (props.showPerson) {
-        btnClass = CockpitClasses.Red
+    if (props.showPersons) {
+        btnClass = [ classes.Button , classes.Red ].join(' ')
     }
     
     if (props.persons.length <= 2) {
-      classes.push(CockpitClasses.red)
+        assignedClasses.push(classes.red)
     }
 
     if (props.persons.length <= 1) {
-      classes.push(CockpitClasses.bold)
+        assignedClasses.push(classes.bold)
     }
 
     return (
-        <div className={classes.Cockpit}>
+        <>
+        {/* // <div className={classes.Cockpit}> */}
             <h1>Isto é um aplicativo React!!</h1>
-            <p className={classes.join(' ')}>{props.title}</p>
+            <p className={assignedClasses.join(' ')}>{props.title}</p>
             <button className={btnClass}
                 onClick={props.toggle}>Mostrar pessoas</button>
-        </div>
+        {/* // </div> */}
+        </>
     )
 
 }
